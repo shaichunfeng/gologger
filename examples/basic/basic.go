@@ -20,6 +20,7 @@ func main() {
 	gologger.Warning().Str("state", "errored").Str("status", "404").Msg("could not run")
 
 	gologger.Debug().TimeStamp().Str("service", "elasticsearch").Str("state", "scanning").Msg("with timestamp event")
+	gologger.Debug().Str("state", "completed").Msg("scan completed")
 
 	// with timestamp
 	gologger.DefaultLogger.SetTimestamp(true, levels.LevelDebug)

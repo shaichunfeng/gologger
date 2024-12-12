@@ -2,6 +2,7 @@ package gologger
 
 import (
 	"fmt"
+	"github.com/shaichunfeng/gologger/types"
 	"os"
 	"strings"
 	"time"
@@ -47,9 +48,10 @@ func (l *Logger) Log(event *Event) {
 	}
 	event.message = strings.TrimSuffix(event.message, "\n")
 	data, err := l.formatter.Format(&formatter.LogEvent{
-		Message:  event.message,
-		Level:    event.level,
-		Metadata: event.metadata,
+		Message:      event.message,
+		Level:        event.level,
+		Metadata:     event.metadata,
+		KeyValuePair: event.pairs,
 	})
 	if err != nil {
 		return
@@ -88,6 +90,7 @@ type Event struct {
 	level    levels.Level
 	message  string
 	metadata map[string]string
+	pairs    []types.KeyValuePair
 }
 
 func newDefaultEventWithLevel(level levels.Level) *Event {
@@ -99,6 +102,7 @@ func newEventWithLevelAndLogger(level levels.Level, l *Logger) *Event {
 		logger:   l,
 		level:    level,
 		metadata: make(map[string]string),
+		pairs:    make([]types.KeyValuePair, 0),
 	}
 	if l.timestamp && level >= l.timestampMinLevel {
 		event.TimeStamp()
@@ -124,7 +128,7 @@ func (e *Event) TimeStamp() *Event {
 
 // Str adds a string metadata item to the log
 func (e *Event) Str(key, value string) *Event {
-	e.metadata[key] = value
+	e.pairs = append(e.pairs, types.KeyValuePair{Key: key, Value: value})
 	return e
 }
 
