@@ -12,8 +12,8 @@ import (
 	"time"
 
 	"github.com/mholt/archiver/v3"
-	"github.com/projectdiscovery/gologger/levels"
-	"gopkg.in/djherbis/times.v1"
+	"github.com/shaichunfeng/gologger/levels"
+	times "gopkg.in/djherbis/times.v1"
 )
 
 func init() {

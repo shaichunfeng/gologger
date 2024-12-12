@@ -4,7 +4,7 @@ import (
 	"os"
 	"sync"
 
-	"github.com/projectdiscovery/gologger/levels"
+	"github.com/shaichunfeng/gologger/levels"
 )
 
 // CLI is a concurrent output writer to terminal.

@@ -10,8 +10,8 @@ package main
 import (
 	"strconv"
 
-	"github.com/projectdiscovery/gologger"
-	"github.com/projectdiscovery/gologger/levels"
+	"github.com/shaichunfeng/gologger"
+	"github.com/shaichunfeng/gologger/levels"
 )
 
 func main() {
@@ -28,4 +28,4 @@ func main() {
 }
 ```
 
-gologger is made with 🖤 by the [projectdiscovery](https://projectdiscovery.io) team.
+gologger forked [gologger](https://github.com/shaichunfeng/gologger) library.
