@@ -2,9 +2,6 @@ package formatter
 
 import (
 	"bytes"
-	"fmt"
-	"sort"
-
 	"github.com/logrusorgru/aurora"
 	"github.com/shaichunfeng/gologger/levels"
 )
@@ -47,19 +44,13 @@ func (c *CLI) Format(event *LogEvent) ([]byte, error) {
 	}
 	buffer.WriteString(event.Message)
 
-	var keys []string
-	for k := range event.Metadata {
-		keys = append(keys, k)
+	for _, pair := range event.KeyValuePair {
+		buffer.WriteRune(' ')
+		buffer.WriteString(c.colorizeKey(pair.Key))
+		buffer.WriteRune('=')
+		buffer.WriteString(pair.Value)
 	}
-	sort.Strings(keys)
-	for _, k := range keys {
-		if v, ok := event.Metadata[k]; ok {
-			buffer.WriteRune(' ')
-			buffer.WriteString(c.colorizeKey(k))
-			buffer.WriteRune('=')
-			buffer.WriteString(v)
-		}
-	}
+
 	data := buffer.Bytes()
 	return data, nil
 }
