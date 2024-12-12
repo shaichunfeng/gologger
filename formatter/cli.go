@@ -51,11 +51,7 @@ func (c *CLI) Format(event *LogEvent) ([]byte, error) {
 	for k := range event.Metadata {
 		keys = append(keys, k)
 	}
-
 	sort.Strings(keys)
-
-	fmt.Printf("hello %v\n", keys)
-
 	for _, k := range keys {
 		if v, ok := event.Metadata[k]; ok {
 			buffer.WriteRune(' ')
