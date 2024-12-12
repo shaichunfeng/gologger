@@ -2,9 +2,11 @@ package formatter
 
 import (
 	"bytes"
+	"fmt"
+	"sort"
 
 	"github.com/logrusorgru/aurora"
-	"github.com/projectdiscovery/gologger/levels"
+	"github.com/shaichunfeng/gologger/levels"
 )
 
 // CLI is a formatter for outputting CLI logs
@@ -45,11 +47,22 @@ func (c *CLI) Format(event *LogEvent) ([]byte, error) {
 	}
 	buffer.WriteString(event.Message)
 
-	for k, v := range event.Metadata {
-		buffer.WriteRune(' ')
-		buffer.WriteString(c.colorizeKey(k))
-		buffer.WriteRune('=')
-		buffer.WriteString(v)
+	var keys []string
+	for k := range event.Metadata {
+		keys = append(keys, k)
+	}
+
+	sort.Strings(keys)
+
+	fmt.Printf("hello %v\n", keys)
+
+	for _, k := range keys {
+		if v, ok := event.Metadata[k]; ok {
+			buffer.WriteRune(' ')
+			buffer.WriteString(c.colorizeKey(k))
+			buffer.WriteRune('=')
+			buffer.WriteString(v)
+		}
 	}
 	data := buffer.Bytes()
 	return data, nil

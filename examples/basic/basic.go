@@ -3,8 +3,8 @@ package main
 import (
 	"strconv"
 
-	"github.com/projectdiscovery/gologger"
-	"github.com/projectdiscovery/gologger/levels"
+	"github.com/shaichunfeng/gologger"
+	"github.com/shaichunfeng/gologger/levels"
 )
 
 func main() {
@@ -18,6 +18,8 @@ func main() {
 	gologger.Debug().Str("state", "running").Msg("planner running")
 	gologger.Debug().TimeStamp().Str("state", "running").Msg("with timestamp event")
 	gologger.Warning().Str("state", "errored").Str("status", "404").Msg("could not run")
+
+	gologger.Debug().TimeStamp().Str("service", "elasticsearch").Str("state", "scanning").Msg("with timestamp event")
 
 	// with timestamp
 	gologger.DefaultLogger.SetTimestamp(true, levels.LevelDebug)
